@@ -9,18 +9,21 @@ const champions = [
     tournament: "RESONANCE CHAMPIONSHIP",
     game: "BGMI",
     winner: "NOVA ESPORTS",
+    accent: "#E6FF4A",
   },
   {
     year: "2026",
     tournament: "RESONANCE FREE FIRE CUP",
     game: "FREE FIRE",
     winner: "VOID",
+    accent: "#FF4F81",
   },
   {
     year: "2026",
     tournament: "RESONANCE COD SHOWDOWN",
     game: "COD",
     winner: "TASK FORCE",
+    accent: "#E6FF4A",
   },
 ];
 
@@ -30,20 +33,32 @@ export default function HallOfFame() {
       id="hall"
       className="relative z-10 mx-auto max-w-7xl px-6 py-32 md:px-10"
     >
-      {/* Header */}
-      <div className="mb-14">
-        <p className="text-[10px] font-bold tracking-[0.45em] text-yellow-400">
-          05 // LEGACY
-        </p>
+      {/* ========================================================= */}
+      {/* HEADER */}
+      {/* ========================================================= */}
 
-        <h2 className="mt-5 text-6xl font-black tracking-[-0.05em] md:text-8xl">
+      <div className="mb-14">
+        <div className="flex items-center gap-3">
+          <span className="h-[2px] w-8 bg-[#E6FF4A]" />
+
+          <p className="text-[10px] font-black tracking-[0.45em] text-[#E6FF4A]">
+            05 // LEGACY
+          </p>
+        </div>
+
+        <h2 className="mt-5 text-6xl font-black uppercase tracking-[-0.05em] md:text-8xl">
           HALL OF
           <br />
-          <span className="text-white/20">FAME.</span>
+          <span className="text-[#F5F0FF]/20 transition-colors duration-500 hover:text-[#FF4F81]/40">
+            FAME.
+          </span>
         </h2>
       </div>
 
-      {/* Champions */}
+      {/* ========================================================= */}
+      {/* CHAMPIONS */}
+      {/* ========================================================= */}
+
       <div className="grid gap-5 md:grid-cols-3">
         {champions.map((champion, index) => (
           <motion.div
@@ -73,15 +88,46 @@ export default function HallOfFame() {
               overflow-hidden
               rounded-2xl
               border
-              border-white/10
-              bg-white/[0.02]
+              border-[#B78AFF]/15
+              bg-[#1A0A2E]/85
               p-8
+              backdrop-blur-sm
               transition-all
               duration-500
-              hover:border-yellow-400/50
+              hover:border-[#B78AFF]/35
+              hover:bg-[#241044]
+              hover:shadow-[0_20px_70px_rgba(124,58,237,0.18)]
             "
           >
-            {/* Decorative circle */}
+            {/* ================================================= */}
+            {/* ATMOSPHERIC GLOW */}
+            {/* ================================================= */}
+
+            <div
+              className="
+                pointer-events-none
+                absolute
+                -right-24
+                -top-24
+                h-64
+                w-64
+                rounded-full
+                opacity-[0.035]
+                blur-3xl
+                transition-all
+                duration-700
+                group-hover:scale-125
+                group-hover:opacity-[0.12]
+              "
+              style={{
+                background: champion.accent,
+              }}
+            />
+
+            {/* ================================================= */}
+            {/* DECORATIVE CIRCLE */}
+            {/* ================================================= */}
+
             <div
               className="
                 absolute
@@ -91,67 +137,141 @@ export default function HallOfFame() {
                 w-56
                 rounded-full
                 border
-                border-yellow-400/5
                 transition-transform
                 duration-700
                 group-hover:scale-125
               "
+              style={{
+                borderColor: `${champion.accent}12`,
+              }}
             />
 
-            {/* Year + Trophy */}
-            <div className="flex items-center justify-between">
-              <span className="text-5xl font-black text-white/[0.05]">
+            <div
+              className="
+                absolute
+                -right-10
+                -top-10
+                h-36
+                w-36
+                rounded-full
+                border
+                transition-transform
+                duration-700
+                group-hover:scale-110
+              "
+              style={{
+                borderColor: `${champion.accent}08`,
+              }}
+            />
+
+            {/* ================================================= */}
+            {/* YEAR + TROPHY */}
+            {/* ================================================= */}
+
+            <div className="relative flex items-center justify-between">
+              <span className="text-5xl font-black text-[#F5F0FF]/[0.05]">
                 {champion.year}
               </span>
 
               <Trophy
                 size={22}
-                className="text-yellow-400"
+                style={{
+                  color: champion.accent,
+                  filter: `drop-shadow(0 0 8px ${champion.accent}50)`,
+                }}
+                className="transition-transform duration-500 group-hover:scale-110"
               />
             </div>
 
-            {/* Information */}
+            {/* ================================================= */}
+            {/* INFORMATION */}
+            {/* ================================================= */}
+
             <div className="relative mt-20">
-              <p className="text-[9px] font-bold tracking-[0.3em] text-yellow-400">
+              <p
+                className="text-[9px] font-black tracking-[0.3em]"
+                style={{
+                  color: champion.accent,
+                }}
+              >
                 {champion.game}
               </p>
 
-              <h3 className="mt-4 text-2xl font-black">
+              <h3 className="mt-4 text-2xl font-black text-[#F5F0FF]">
                 {champion.tournament}
               </h3>
 
-              {/* Champion */}
-              <div className="mt-10 border-t border-white/10 pt-6">
-                <p className="text-[9px] font-bold tracking-[0.3em] text-white/20">
+              {/* ================================================= */}
+              {/* CHAMPION */}
+              {/* ================================================= */}
+
+              <div className="mt-10 border-t border-[#B78AFF]/10 pt-6">
+                <p className="text-[9px] font-black tracking-[0.3em] text-[#F5F0FF]/20">
                   CHAMPION
                 </p>
 
                 <div className="mt-3 flex items-center gap-3">
                   <Crown
                     size={17}
-                    className="text-yellow-400"
+                    style={{
+                      color: champion.accent,
+                      filter: `drop-shadow(0 0 6px ${champion.accent}60)`,
+                    }}
                   />
 
-                  <p className="text-lg font-black">
+                  <p className="text-lg font-black text-[#F5F0FF]">
                     {champion.winner}
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Bottom glow */}
+            {/* ================================================= */}
+            {/* BOTTOM ENERGY BAR */}
+            {/* ================================================= */}
+
+            <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#B78AFF]/10">
+              <div
+                className="
+                  h-full
+                  w-0
+                  transition-all
+                  duration-700
+                  group-hover:w-full
+                "
+                style={{
+                  background: `linear-gradient(
+                    90deg,
+                    transparent,
+                    ${champion.accent},
+                    transparent
+                  )`,
+                  boxShadow: `0 0 12px ${champion.accent}`,
+                }}
+              />
+            </div>
+
+            {/* ================================================= */}
+            {/* LEFT ACCENT */}
+            {/* ================================================= */}
+
             <div
               className="
                 absolute
                 bottom-0
                 left-0
-                h-[2px]
-                w-0
-                bg-yellow-400
-                transition-all
+                top-0
+                w-[2px]
+                origin-bottom
+                scale-y-0
+                transition-transform
                 duration-500
-                group-hover:w-full
+                group-hover:scale-y-100
               "
+              style={{
+                background: champion.accent,
+                boxShadow: `0 0 15px ${champion.accent}`,
+              }}
             />
           </motion.div>
         ))}
