@@ -90,9 +90,23 @@ export default function TournamentsAdmin() {
 
     setGames(gamesResult.data ?? []);
 
-    setTournaments(
-      (tournamentsResult.data ?? []) as Tournament[]
-    );
+    const normalizedTournaments: Tournament[] = (
+  tournamentsResult.data ?? []
+).map((tournament) => ({
+  id: tournament.id,
+  name: tournament.name,
+  description: tournament.description,
+  status: tournament.status,
+  start_date: tournament.start_date,
+  end_date: tournament.end_date,
+  location: tournament.location,
+  max_teams: tournament.max_teams,
+  game_id: tournament.game_id,
+
+  games: tournament.games?.[0] ?? null,
+}));
+
+setTournaments(normalizedTournaments);
 
     setLoading(false);
   }

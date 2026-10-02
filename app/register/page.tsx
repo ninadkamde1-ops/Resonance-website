@@ -75,7 +75,20 @@ export default function RegistrationPage() {
     if (error) {
       setError(error.message);
     } else {
-      setTournaments(data || []);
+      const normalizedTournaments: Tournament[] = (
+  data ?? []
+).map((tournament) => ({
+  id: tournament.id,
+  name: tournament.name,
+  description: tournament.description,
+  status: tournament.status,
+  game_id: tournament.game_id,
+  max_teams: tournament.max_teams,
+
+  games: tournament.games?.[0] ?? null,
+}));
+
+setTournaments(normalizedTournaments);
     }
 
     setLoading(false);

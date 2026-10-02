@@ -70,12 +70,29 @@ export default function PlayersHQ() {
     ]);
 
     if (playersRes.error) {
+      console.error(playersRes.error);
       setMessage(playersRes.error.message);
     } else {
-      setPlayers(playersRes.data || []);
+      const normalizedPlayers: Player[] = (playersRes.data ?? []).map(
+        (player) => ({
+          id: player.id,
+          team_id: player.team_id,
+          name: player.name,
+          ign: player.ign,
+          uid: player.uid,
+          email: player.email,
+          phone: player.phone,
+          is_substitute: player.is_substitute,
+          created_at: player.created_at,
+          teams: player.teams?.[0] ?? null,
+        })
+      );
+
+      setPlayers(normalizedPlayers);
     }
 
     if (teamsRes.error) {
+      console.error(teamsRes.error);
       setMessage(teamsRes.error.message);
     } else {
       setTeams(teamsRes.data || []);
@@ -113,6 +130,7 @@ export default function PlayersHQ() {
     });
 
     if (error) {
+      console.error(error);
       setMessage(error.message);
       return;
     }
@@ -146,6 +164,7 @@ export default function PlayersHQ() {
       .eq("id", id);
 
     if (error) {
+      console.error(error);
       setMessage(error.message);
       return;
     }
@@ -303,6 +322,7 @@ export default function PlayersHQ() {
                 <div className="flex items-center gap-4">
                   <div className="hidden md:block text-right text-sm">
                     <p className="text-white/30">UID</p>
+
                     <p className="text-white/70">
                       {player.uid || "—"}
                     </p>
@@ -410,7 +430,10 @@ export default function PlayersHQ() {
                     }
                     className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 outline-none focus:border-yellow-400/50"
                   >
-                    <option value="" className="bg-black">
+                    <option
+                      value=""
+                      className="bg-black"
+                    >
                       Select team
                     </option>
 
@@ -421,7 +444,9 @@ export default function PlayersHQ() {
                         className="bg-black"
                       >
                         {team.name}
-                        {team.tag ? ` [${team.tag}]` : ""}
+                        {team.tag
+                          ? ` [${team.tag}]`
+                          : ""}
                       </option>
                     ))}
                   </select>
@@ -499,11 +524,18 @@ function Stat({
   return (
     <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
       <div className="flex items-center justify-between mb-4">
-        <span className="text-white/40 text-sm">{label}</span>
-        <span className="text-yellow-400">{icon}</span>
+        <span className="text-white/40 text-sm">
+          {label}
+        </span>
+
+        <span className="text-yellow-400">
+          {icon}
+        </span>
       </div>
 
-      <p className="text-3xl font-black">{value}</p>
+      <p className="text-3xl font-black">
+        {value}
+      </p>
     </div>
   );
 }

@@ -83,7 +83,24 @@ export default function RegistrationsHQ() {
       console.error(registrationsRes.error);
       setMessage(registrationsRes.error.message);
     } else {
-      setRegistrations(registrationsRes.data || []);
+     const normalizedRegistrations: Registration[] = (
+  registrationsRes.data ?? []
+).map((registration) => ({
+  id: registration.id,
+  tournament_id: registration.tournament_id,
+  team_id: registration.team_id,
+  captain_player_id: registration.captain_player_id,
+  registration_status: registration.registration_status,
+  payment_status: registration.payment_status,
+  payment_amount: registration.payment_amount,
+  registered_at: registration.registered_at,
+
+  tournaments: registration.tournaments?.[0] ?? null,
+  teams: registration.teams?.[0] ?? null,
+  players: registration.players?.[0] ?? null,
+}));
+
+setRegistrations(normalizedRegistrations);
     }
 
     if (tournamentsRes.error) {
