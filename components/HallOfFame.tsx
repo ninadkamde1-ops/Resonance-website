@@ -83,9 +83,17 @@ export default function HallOfFame() {
         return;
       }
 
-      setChampions(
-        (data || []) as Champion[],
-      );
+      const normalizedChampions = (data || []).map((row: any) => ({
+        ...row,
+        tournaments: Array.isArray(row.tournaments)
+          ? row.tournaments[0] ?? null
+          : row.tournaments ?? null,
+        teams: Array.isArray(row.teams)
+          ? row.teams[0] ?? null
+          : row.teams ?? null,
+      }));
+
+      setChampions(normalizedChampions as Champion[]);
 
       setLoading(false);
     }
