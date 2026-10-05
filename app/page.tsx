@@ -2,6 +2,7 @@
 
 import Games from "@/components/Games";
 import { motion } from "framer-motion";
+import Matches from "@/components/Matches";
 
 import {
   ArrowDown,
@@ -574,6 +575,8 @@ export default function Home() {
         <Games />
 
         <Tournaments />
+
+        <Matches />
 
         <Leaderboard />
 
