@@ -47,7 +47,6 @@ export default function Tournaments() {
         end_date,
         location,
         max_teams,
-
         games (
           name,
           short_name
@@ -63,10 +62,11 @@ export default function Tournaments() {
     }
 
     /*
-      Normalize the Supabase relationship response.
+      Supabase may return the games relationship
+      as an array.
 
-      Supabase may return `games` as an array even though
-      each tournament belongs to one game.
+      We normalize it into a single object because
+      every tournament belongs to one game.
     */
     const normalizedTournaments = (data || []).map((row: any) => ({
       ...row,
@@ -77,7 +77,7 @@ export default function Tournaments() {
     }));
 
     setTournaments(
-      normalizedTournaments as Tournament[]
+      normalizedTournaments as unknown as Tournament[]
     );
 
     setLoading(false);
@@ -140,15 +140,14 @@ export default function Tournaments() {
           </div>
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-
             {[1, 2, 3].map((item) => (
               <div
                 key={item}
                 className="h-80 animate-pulse rounded-2xl border border-white/10 bg-white/[0.03]"
               />
             ))}
-
           </div>
+
         </div>
       </section>
     );
@@ -158,6 +157,7 @@ export default function Tournaments() {
     <section className="py-20">
       <div className="mx-auto max-w-6xl px-6">
 
+        {/* HEADER */}
         <div className="mb-10">
 
           <div className="mb-3 flex items-center gap-3">
@@ -184,7 +184,10 @@ export default function Tournaments() {
 
         </div>
 
+        {/* EMPTY STATE */}
+
         {tournaments.length === 0 ? (
+
           <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-10 text-center">
 
             <Trophy
@@ -197,7 +200,10 @@ export default function Tournaments() {
             </p>
 
           </div>
+
         ) : (
+
+          /* TOURNAMENT GRID */
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 
@@ -208,13 +214,13 @@ export default function Tournaments() {
                 className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition duration-300 hover:-translate-y-1 hover:border-yellow-400/30 hover:bg-white/[0.05]"
               >
 
-                {/* Glow */}
+                {/* GLOW */}
 
                 <div className="pointer-events-none absolute -right-20 -top-20 h-40 w-40 rounded-full bg-yellow-400/10 blur-3xl transition group-hover:bg-yellow-400/20" />
 
                 <div className="relative">
 
-                  {/* Status */}
+                  {/* STATUS */}
 
                   <div className="mb-5 flex items-center justify-between gap-3">
 
@@ -235,13 +241,13 @@ export default function Tournaments() {
 
                   </div>
 
-                  {/* Title */}
+                  {/* TITLE */}
 
                   <h3 className="text-2xl font-black text-white transition group-hover:text-yellow-400">
                     {tournament.name}
                   </h3>
 
-                  {/* Game */}
+                  {/* GAME */}
 
                   {tournament.games && (
                     <p className="mt-2 text-sm text-gray-400">
@@ -249,9 +255,11 @@ export default function Tournaments() {
                     </p>
                   )}
 
-                  {/* Information */}
+                  {/* DETAILS */}
 
                   <div className="mt-6 space-y-3">
+
+                    {/* DATE */}
 
                     <div className="flex items-center gap-3 text-sm text-gray-400">
 
@@ -265,6 +273,8 @@ export default function Tournaments() {
                       </span>
 
                     </div>
+
+                    {/* LOCATION */}
 
                     {tournament.location && (
                       <div className="flex items-center gap-3 text-sm text-gray-400">
@@ -280,6 +290,8 @@ export default function Tournaments() {
 
                       </div>
                     )}
+
+                    {/* MAX TEAMS */}
 
                     {tournament.max_teams !== null && (
                       <div className="flex items-center gap-3 text-sm text-gray-400">
@@ -298,7 +310,7 @@ export default function Tournaments() {
 
                   </div>
 
-                  {/* Action */}
+                  {/* ACTION */}
 
                   <div className="mt-7">
 

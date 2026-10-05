@@ -93,8 +93,7 @@ export default function HallOfFame() {
           : row.teams ?? null,
       }));
 
-      setChampions(normalizedChampions as Champion[]);
-
+setChampions(normalizedChampions as unknown as Champion[]);
       setLoading(false);
     }
 

@@ -89,7 +89,7 @@ export default function Leaderboard() {
         : row.tournaments ?? null,
     }));
 
-    setStandings(normalizedStandings as Standing[]);
+    setStandings(normalizedStandings as unknown as Standing[]);
     setLoading(false);
   }
 

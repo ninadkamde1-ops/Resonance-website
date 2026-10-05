@@ -114,7 +114,7 @@ export default function Matches() {
         : row.team_b ?? null,
     }));
 
-    setMatches(normalizedMatches as Match[]);
+    setMatches(normalizedMatches as unknown as Match[]);
     setLoading(false);
   }
 
