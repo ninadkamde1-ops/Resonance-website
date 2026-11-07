@@ -23,7 +23,7 @@ type Tournament = {
   games: {
     name: string;
     short_name: string | null;
-  } | null;
+  } | null; 
 };
 
 export default function Tournaments() {

@@ -1,55 +1,33 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-input[type="datetime-local"]::-webkit-calendar-picker-indicator {
-  opacity: 1;
-  cursor: pointer;
-  display: block;
-}
+:root { --background: #050914; --foreground: #eef7ff; }
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
-.touch-ripple {
-  width: 20px;
-  height: 20px;
-  border: 2px solid rgba(255, 204, 0, 0.8);
-  border-radius: 9999px;
-  transform: translate(-50%, -50%);
-  animation: resonance-ripple 0.8s ease-out forwards;
-  box-shadow:
-    0 0 20px rgba(255, 204, 0, 0.4),
-    0 0 60px rgba(255, 204, 0, 0.2);
-}
-
-@keyframes resonance-ripple {
-  0% {
-    width: 20px;
-    height: 20px;
-    opacity: 1;
-  }
-
-  100% {
-    width: 300px;
-    height: 300px;
-    opacity: 0;
-  }
-}
+html { scroll-behavior: smooth; background: var(--background); }
+body { background: var(--background); color: var(--foreground); font-family: Arial, Helvetica, sans-serif; }
+::selection { color: #06101d; background: rgba(103,232,249,.8); }
+.photonic-gradient-text { background: linear-gradient(100deg,#e6fbff 0%,#75e7ff 35%,#a9a1ff 72%,#e3c7ff 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.photonic-grid { opacity:.28; background-image:linear-gradient(rgba(117,220,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(117,220,255,.12) 1px,transparent 1px); background-size:34px 34px; mask-image:radial-gradient(circle,black 15%,transparent 72%); -webkit-mask-image:radial-gradient(circle,black 15%,transparent 72%); transform:perspective(600px) rotateX(58deg) scale(1.35); }
+.photonic-halo { background:radial-gradient(circle,rgba(75,207,255,.16),rgba(89,82,220,.08) 45%,transparent 72%); filter:blur(25px); animation:photonic-breathe 6s ease-in-out infinite alternate; }
+.photonic-orbit { border:1px solid rgba(142,226,255,.17); box-shadow:0 0 24px rgba(67,191,255,.04),inset 0 0 24px rgba(67,191,255,.025); transform:rotate(-24deg) scaleY(.58); }
+.photonic-orbit-one { animation:photonic-orbit 18s linear infinite; }
+.photonic-orbit-two { border-color:rgba(176,150,255,.2); transform:rotate(38deg) scaleY(.62); animation:photonic-orbit-reverse 22s linear infinite; }
+.photonic-orbit-three { border-color:rgba(111,228,255,.14); transform:rotate(90deg) scaleY(.55); animation:photonic-orbit 28s linear infinite; }
+.photonic-beam { position:absolute; z-index:5; height:1px; width:75%; left:12.5%; background:linear-gradient(90deg,transparent,rgba(104,231,255,.8),rgba(174,151,255,.75),transparent); filter:drop-shadow(0 0 7px rgba(103,232,249,.9)); opacity:0; pointer-events:none; }
+.photonic-beam-one { top:34%; transform:rotate(25deg); animation:beam-sweep 5s ease-in-out infinite; }
+.photonic-beam-two { top:57%; transform:rotate(-19deg); animation:beam-sweep 6.5s ease-in-out 1.2s infinite; }
+.photonic-beam-three { top:72%; transform:rotate(8deg); animation:beam-sweep 7s ease-in-out 2.4s infinite; }
+.photonic-scan { z-index:15; pointer-events:none; border:1px solid rgba(122,226,255,.12); background:linear-gradient(120deg,transparent 35%,rgba(128,226,255,.08) 50%,transparent 65%); mask-image:radial-gradient(circle,black 25%,transparent 72%); -webkit-mask-image:radial-gradient(circle,black 25%,transparent 72%); animation:scan-drift 8s ease-in-out infinite alternate; }
+.photonic-noise { background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E"); }
+.touch-ripple { width:20px; height:20px; border:2px solid rgba(103,232,249,.8); border-radius:9999px; transform:translate(-50%,-50%); animation:resonance-ripple .8s ease-out forwards; box-shadow:0 0 20px rgba(103,232,249,.4),0 0 60px rgba(103,232,249,.2); }
+@keyframes resonance-ripple { 0%{width:20px;height:20px;opacity:1} 100%{width:300px;height:300px;opacity:0} }
+@keyframes photonic-breathe { from{opacity:.55;transform:scale(.92)} to{opacity:1;transform:scale(1.08)} }
+@keyframes photonic-orbit { from{rotate:0deg} to{rotate:360deg} }
+@keyframes photonic-orbit-reverse { from{rotate:360deg} to{rotate:0deg} }
+@keyframes beam-sweep { 0%,100%{opacity:0;translate:-8% 0} 30%,65%{opacity:.8} 50%{translate:8% 0} }
+@keyframes scan-drift { from{transform:rotate(-12deg) scale(.92);opacity:.3} to{transform:rotate(12deg) scale(1.08);opacity:.8} }
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; } }
